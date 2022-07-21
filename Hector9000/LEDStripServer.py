@@ -17,7 +17,7 @@ def on_message(client, userdata, msg):
     return
     print("err")
     debugOut("abc")
-    # print("LED_Server on_message: " + str(mgs.topic) + " , " + msg.payload.decode("utf-8"))
+    print("LED_Server on_message: " + str(mgs.topic) + " , " + msg.payload.decode("utf-8"))
     topic = msg.topic
     topic = topic.replace(MainTopic, "")
     print("topic: " + topic)

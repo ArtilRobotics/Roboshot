@@ -17,7 +17,7 @@ from Hector9000.conf import HectorConfig
 # hardware modules
 import Adafruit_PCA9685
 import RPi.GPIO as GPIO
-from Hector9000.conf.hx711 import HX711
+from Hector9000.conf.HX711_Python3.hx711 import HX711
 
 # settings
 
@@ -52,17 +52,17 @@ class HectorHardware(api.HectorAPI):
         log("initialization HectorHardware")
 
         self.config = cfg
+        
         GPIO.setmode(GPIO.BOARD)
-
+        
+   
         # setup scale (HX711)
-        hx1 = cfg["hx711"]["CLK"]
-        hx2 = cfg["hx711"]["DAT"]
-        hxref = cfg["hx711"]["ref"]
-        self.hx = HX711(hx1, hx2)
-        self.hx.set_reading_format("LSB", "MSB")
-        self.hx.set_reference_unit(hxref)
-        self.hx.reset()
-        self.hx.tare()
+        self.hx = HX711(dout_pin=40, pd_sck_pin=38)
+        self.hx.zero()
+        ratio = cfg["hx711"]["ref"]
+        self.hx.set_scale_ratio(ratio) 
+        print(self.hx.get_weight_mean(20))
+        
 
         # setup servos (PCA9685)
         self.valveChannels = self.config["pca9685"]["valvechannels"]
@@ -76,7 +76,7 @@ class HectorHardware(api.HectorAPI):
         pcafreq = cfg["pca9685"]["freq"]
         self.pca = Adafruit_PCA9685.PCA9685()
         self.pca.set_pwm_freq(pcafreq)
-
+        '''
         # setup arm stepper (A4988)
         self.armEnable = cfg["a4988"]["ENABLE"]
         self.armReset = cfg["a4988"]["RESET"]
@@ -94,7 +94,7 @@ class HectorHardware(api.HectorAPI):
         GPIO.setup(self.armStep, GPIO.OUT)
         GPIO.setup(self.armDir, GPIO.OUT)
         GPIO.setup(self.arm, GPIO.IN)
-        GPIO.setup(self.lightPin, GPIO.OUT)
+        GPIO.setup(self.lightPin, GPIO.OUT)'''
 
         # setup air pump (GPIO)
         self.pump = cfg["pump"]["MOTOR"]
@@ -111,7 +111,7 @@ class HectorHardware(api.HectorAPI):
     def light_off(self):
         log("turn off light")
         GPIO.output(self.lightPin, False)
-
+    '''
     def arm_out(self, cback=None):
         armMaxSteps = int(self.armNumSteps * 1.1)
         GPIO.output(self.armEnable, False)
@@ -156,14 +156,14 @@ class HectorHardware(api.HectorAPI):
         else:
             log("arm_isInOutPos = False")
         return pos
-
+        '''
     def scale_readout(self):
-        weight = self.hx.get_weight(5)
+        weight = self.hx.get_weight_mean(5)
         return weight
 
     def scale_tare(self):
-        log("scale tare")
-        self.hx.tare()
+        print("scale tare")
+        self.hx.zero()
 
     def pump_start(self):
         log("start pump")
@@ -206,8 +206,8 @@ class HectorHardware(api.HectorAPI):
         log("dose channel %d, amount %d" % (index, amount))
         if index < 0 and index >= len(self.valveChannels) - 1:
             return -1
-        if not self.arm_isInOutPos():
-            return -1
+        #if not self.arm_isInOutPos():
+            #return -1
         t0 = time()
         balance = True
         self.scale_tare()
@@ -288,3 +288,12 @@ class HectorHardware(api.HectorAPI):
 
 
 # end class HectorHardware
+co= HectorConfig.config
+h=HectorHardware(co)
+
+#h.valve_close(3)
+while 1:
+    h.valve_close(3)
+    h.valve_dose(3,40,30,None,(0,100),"vodka")
+    #sr = h.scale_readout()
+    #print(sr)

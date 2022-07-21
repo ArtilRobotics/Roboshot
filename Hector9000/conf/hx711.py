@@ -18,7 +18,7 @@ class HX711:
             GPIO.setup(self.PD_SCK, GPIO.OUT)
             GPIO.setup(self.DOUT, GPIO.IN)
 
-        self.GAIN = 0
+        self.GAIN = 1
         # The value returned by the hx711 that corresponds to your reference
         # unit AFTER dividing by the SCALE.
         self.REFERENCE_UNIT = 1
@@ -46,11 +46,11 @@ class HX711:
         return GPIO.input(self.DOUT) == 0
 
     def set_gain(self, gain):
-        if gain is 128:
+        if gain == 128:
             self.GAIN = 1
-        elif gain is 64:
+        elif gain == 64:
             self.GAIN = 3
-        elif gain is 32:
+        elif gain == 32:
             self.GAIN = 2
 
         GPIO.output(self.PD_SCK, False)
@@ -114,7 +114,7 @@ class HX711:
         np_arr8_string = "["
         comma = ", "
         for i in range(4):
-            if i is 3:
+            if i == 3:
                 comma = ""
             np_arr8_string += str(np_arr8[i]) + comma
         np_arr8_string += "]"
@@ -146,7 +146,7 @@ class HX711:
 
     def get_weight(self, times=3):
         value = self.get_value(times)
-        value = value / self.REFERENCE_UNIT
+        value = value -/ 2461
         return value
 
     def tare(self, times=15):

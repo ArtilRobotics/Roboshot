@@ -25,7 +25,7 @@ class HectorAPI(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def light_off(self):
         pass
-
+    '''
     @abc.abstractmethod
     def arm_out(self, cback = debugOut):
         pass
@@ -36,7 +36,7 @@ class HectorAPI(object, metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def arm_isInOutPos(self):
-        return False
+        return False '''
 
     @abc.abstractmethod
     def scale_readout(self):
