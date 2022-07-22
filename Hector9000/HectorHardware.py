@@ -285,15 +285,17 @@ class HectorHardware(api.HectorAPI):
         pulse *= 1000
         pulse //= pulse_length
         self.pca.set_pwm(channel, 0, pulse)
-
-
 # end class HectorHardware
-co= HectorConfig.config
-h=HectorHardware(co)
 
-h.valve_close(3)
-while 1:
-    #h.valve_open(3,1)
-    h.valve_dose(3,40,30,None,(0,100),"vodka")
-    sr = h.scale_readout()
-    print(sr)
+def main():
+    co= HectorConfig.config
+    h=HectorHardware(co)
+    h.valve_close(3)
+    while 1:
+        #h.valve_open(3,1)
+        h.valve_dose(3,100,30,None,(0,100),"Hector9000/doseDrink/progress")
+        #sr = h.scale_readout()
+        #print(sr)
+
+if __name__ == "__main__":
+    main()
