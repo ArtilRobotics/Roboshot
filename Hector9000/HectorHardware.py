@@ -7,6 +7,7 @@
 
 # imports
 from __future__ import division
+from fileinput import close
 
 from time import sleep, time
 import sys
@@ -168,10 +169,12 @@ class HectorHardware(api.HectorAPI):
     def pump_start(self):
         log("start pump")
         GPIO.setup(self.pump, GPIO.OUT)
+        GPIO.output(self.pump,True)
 
     def pump_stop(self):
         log("stop pump")
-        GPIO.setup(self.pump, GPIO.IN)
+        GPIO.setup(self.pump, GPIO.OUT)
+        GPIO.output(self.pump,False)
 
     def valve_open(self, index, open=1):
         if open == 0:
@@ -221,13 +224,14 @@ class HectorHardware(api.HectorAPI):
         last = sr
         while True:
             sr = self.scale_readout()
+            print("Valor",sr)
             if balance and sr < -10:
                 warning("weight abnormality: scale balanced")
                 amount = amount + sr
                 balance = False
             if sr > amount:
                 if last_over:
-                    log("dosing complete")
+                    print("dosing complete")
                     break
                 else:
                     last_over = True
@@ -296,6 +300,5 @@ def main():
         h.valve_dose(3,100,30,None,(0,100),"Hector9000/doseDrink/progress")
         #sr = h.scale_readout()
         #print(sr)
-
 if __name__ == "__main__":
     main()
