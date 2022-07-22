@@ -291,9 +291,9 @@ class HectorHardware(api.HectorAPI):
 co= HectorConfig.config
 h=HectorHardware(co)
 
-#h.valve_close(3)
+h.valve_close(3)
 while 1:
-    h.valve_close(3)
+    #h.valve_open(3,1)
     h.valve_dose(3,40,30,None,(0,100),"vodka")
-    #sr = h.scale_readout()
-    #print(sr)
+    sr = h.scale_readout()
+    print(sr)
