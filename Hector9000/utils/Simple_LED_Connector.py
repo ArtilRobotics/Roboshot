@@ -92,3 +92,10 @@ class Simple_LED_Connector(LEDStripAPI):
                             self.pixels[i] = (0, 0, 255)
                         break
                     # self.pixels.show()
+def main():
+    h=Simple_LED_Connector()
+    while 1:
+        h.finish((255, 255, 255),0)
+        
+if __name__ == "__main__":
+    main()

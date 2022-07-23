@@ -108,3 +108,4 @@ client.connect(MQTT_Server, port, 60)
 client.loop_start()
 while True:
     pixels.loop()
+    pixels.drinkfinish()
