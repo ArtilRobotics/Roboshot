@@ -1,13 +1,8 @@
- Chat:  [![Join the Chat at https://gitter.im/Hector9k/Hector9000](https://img.shields.io/gitter/room/Hector9k/Hector9000?style=plastic)](https://gitter.im/Hector9k/Hector9000?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
- 
-| Branch  | Status |
-| ------------- | ------------- |
-| Master | [![Build Status(Master)](https://travis-ci.com/H3c702/Hector9000.svg?branch=master&label=master)](https://travis-ci.com/H3c702/Hector9000/branches) |
-| Development  | [![Build Status](https://travis-ci.com/H3c702/Hector9000.svg?branch=development)](https://travis-ci.com/H3c702/Hector9000/branches)  |
-
-
-HECTOR 9000
+RoboShot
 ======================
+
+Original project
+here https://hectorbot.de/
 
 Minimal Requirements 
 ---
@@ -113,7 +108,10 @@ Hector better, don't be afraid to send us a pullrequest ;-)
 ---
 Special thanks to
 <div>
-
+  <a>
+   Hector 9000 Team
+	git clone https://github.com/H3c702/Hector9000.git
+  </a>
   <a href="https://www.jetbrains.com/pycharm/">
     <img alt="PyCharm" width="128" heigth="128" hspace="40" src="./images/PyCharm_logo.png">
   </a>
