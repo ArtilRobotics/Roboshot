@@ -6,7 +6,6 @@ here https://hectorbot.de/
 
 Minimal Requirements 
 ---
-
 	- RaspberryPi 3
 	- Debian bases Linux (to use installscript)
     - Python 3.8
@@ -18,6 +17,19 @@ Activate I2C:
     sudo raspi-config 
 
 Here go to "Interfacing Options" and Activate/Enable I2C 
+
+PWM update:
+----
+Since this library and the onboard Raspberry Pi audio both use the PWM, they cannot be used together. You will need to blacklist the Broadcom audio kernel module by creating a file /etc/modprobe.d/snd-blacklist.conf with:
+    blacklist snd_bcm2835
+
+If the audio device is still loading after blacklisting, you may also need to comment it out in the /etc/modules file.
+
+On headless systems you may also need to force audio through hdmi Edit config.txt and add:
+
+    hdmi_force_hotplug=1
+    hdmi_force_edid_audio=1
+don't force if you have screen with the flex port.
 
 Install on RaspberryPi
 ----
