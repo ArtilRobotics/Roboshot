@@ -14,7 +14,7 @@ def debugOut(message):
 def on_message(client, userdata, msg):
     print("message recieved")
     pixels.drinkfinish()
-    return
+#    return
     print("err")
     debugOut("abc")
     print("LED_Server on_message: " + str(mgs.topic) + " , " + msg.payload.decode("utf-8"))
@@ -106,6 +106,6 @@ client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 client.connect(MQTT_Server, port, 60)
 client.loop_start()
-while True:
+while False:
     pixels.loop()
     pixels.drinkfinish()

@@ -14,8 +14,8 @@ import os
 import paho.mqtt.client as mqtt
 from Hector9000.conf import HectorConfig as HC
 
-#isSim = 1
-isSim = os.environ.get('isHectorSim', 0)
+isSim = 0
+#isSim = os.environ.get('isHectorSim', 0)
 
 print(isSim)
 if isSim != 1:
@@ -69,12 +69,12 @@ def do_light_off():
 
 def do_arm_out():
     log("drive arm out")
-    hector.arm_out()
+    #hector.arm_out()
 
 
 def do_arm_in():
     log("drive arm in")
-    hector.arm_in()
+    #hector.arm_in()
 
 
 def do_arm_isInOutPos():
@@ -101,7 +101,7 @@ def do_reset():
     log("reseting")
     do_pump_stop()
     do_all_valve_close()
-    do_arm_in()
+    #do_arm_in()
     do_light_off()
     do_ping(2, 0)
 
@@ -115,7 +115,7 @@ def do_all_valve_open():
     log("opening all valves")
     hector.light_on()
     time.sleep(1)
-    hector.arm_in()
+    #hector.arm_in()
     hector.pump_stop()
     for vnum in range(12):
         # log("Ventil %d wird geöffnet" % (vnum,))
@@ -128,7 +128,7 @@ def do_all_valve_close():
     log("close all valves")
     hector.light_on()
     time.sleep(1)
-    hector.arm_in()
+    #hector.arm_in()
     hector.pump_stop()
     for vnum in range(12):
         # log("Ventil %d wird geschlossen" % (vnum,))
@@ -282,8 +282,10 @@ def main():
     client.on_message = on_message
     client.on_connect = on_connect
     client.on_subscribe = on_subscribe
+    print("test")
     client.connect(MQTTIP, MQTTPORT, 60)
-    log("started")
+    print("started")
+    do_all_valve_open()
     while True:
         client.loop()
 

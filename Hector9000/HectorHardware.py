@@ -94,13 +94,13 @@ class HectorHardware(api.HectorAPI):
         GPIO.output(self.armSleep, True)
         GPIO.setup(self.armStep, GPIO.OUT)
         GPIO.setup(self.armDir, GPIO.OUT)
-        GPIO.setup(self.arm, GPIO.IN)
-        GPIO.setup(self.lightPin, GPIO.OUT)'''
+        GPIO.setup(self.arm, GPIO.IN)'''
+        GPIO.setup(self.lightPin, GPIO.OUT)
 
         # setup air pump (GPIO)
         self.pump = cfg["pump"]["MOTOR"]
         # pump off; will be turned on with GPIO.OUT (?!?)
-        GPIO.setup(self.pump, GPIO.IN)
+        GPIO.setup(self.pump, GPIO.OUT)
 
     def getConfig(self):
         return self.config
