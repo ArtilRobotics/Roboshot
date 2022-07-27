@@ -102,3 +102,5 @@ src/Hector9000/log
 *.py-1
 
 /dist
+
+PCB_Roboshot/Roboshot/Roboshot-backups/
