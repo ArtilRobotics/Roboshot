@@ -1,4 +1,2 @@
 (fp_lib_table
-  (lib (name "Rubilon")(type "KiCad")(uri "C:/Users/Josue Viscarra/Desktop/7840-0000PR/Rubilon.pretty")(options "")(descr ""))
-  (lib (name "Sellos")(type "KiCad")(uri "C:/Program Files/KiCad/share/kicad/modules/Sellos.pretty")(options "")(descr ""))
 )
