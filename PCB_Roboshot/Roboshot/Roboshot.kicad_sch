@@ -2355,7 +2355,7 @@
     (property "Datasheet" "" (id 3) (at 57.404 109.728 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "GND" (uuid aa96a9ae-a841-4f4b-9f52-3032a8ca56fd))
+    (pin "GND" (uuid c9ab4b8b-2c5f-41ee-b640-a3cdaad2af8f))
     (pin "GND" (uuid c9ab4b8b-2c5f-41ee-b640-a3cdaad2af8f))
     (pin "HV" (uuid 972246dc-5407-4370-a604-d259f95bdc07))
     (pin "HV1" (uuid 150d9d6f-49f9-4a6f-8dd4-1d5d987f219f))
