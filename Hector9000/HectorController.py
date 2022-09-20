@@ -5,8 +5,10 @@ from Hector9000.conf import drinks as drinks
 from Hector9000.conf import database as db
 import webcolors
 import paho.mqtt.client as mqtt
+import RPi.GPIO as GPIO
 import time
 import traceback
+
 
 VERBOSE_LEVEL = 0
 
@@ -89,7 +91,14 @@ class HectorController:
         return self.db.set_Servo(servo, code)
 
     def on_connect(self, client, userdata, flags, rc):
+        #PARA EL ENCENDIDO DE LA PLACA PCA 9685
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(21,GPIO.OUT)
+        GPIO.output(21,True)
+        ##############################################
         debug("Connected with result code " + str(rc))
+        debug("Transistor on")
+
         self.client.subscribe(self.TopicPrefix + "#")
         if self.LED:
             self.hector.standart(type=3)
