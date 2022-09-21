@@ -14,8 +14,8 @@ import os
 import paho.mqtt.client as mqtt
 from Hector9000.conf import HectorConfig as HC
 
+#Definido para que se conecte al hardware y no al simulador
 isSim = 0
-#isSim = os.environ.get('isHectorSim', 0)
 
 print(isSim)
 if isSim != 1:
