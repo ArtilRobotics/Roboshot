@@ -93,8 +93,8 @@ class HectorController:
     def on_connect(self, client, userdata, flags, rc):
         #PARA EL ENCENDIDO DE LA PLACA PCA 9685
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(21,GPIO.OUT)
-        GPIO.output(21,True)
+        GPIO.setup(26,GPIO.OUT)
+        GPIO.output(26,True)
         ##############################################
         debug("Connected with result code " + str(rc))
         debug("Transistor on")
