@@ -76,25 +76,6 @@ class HectorHardware(api.HectorAPI):
         pcafreq = cfg["pca9685"]["freq"]
         self.pca = Adafruit_PCA9685.PCA9685()
         self.pca.set_pwm_freq(pcafreq)
-        '''
-        # setup arm stepper (A4988)
-        self.armEnable = cfg["a4988"]["ENABLE"]
-        self.armReset = cfg["a4988"]["RESET"]
-        self.armSleep = cfg["a4988"]["SLEEP"]
-        self.armStep = cfg["a4988"]["STEP"]
-        self.armDir = cfg["a4988"]["DIR"]
-        self.armNumSteps = cfg["a4988"]["numSteps"]
-        self.arm = cfg["arm"]["SENSE"]
-        GPIO.setup(self.armEnable, GPIO.OUT)
-        GPIO.output(self.armEnable, True)
-        GPIO.setup(self.armReset, GPIO.OUT)
-        GPIO.output(self.armReset, True)
-        GPIO.setup(self.armSleep, GPIO.OUT)
-        GPIO.output(self.armSleep, True)
-        GPIO.setup(self.armStep, GPIO.OUT)
-        GPIO.setup(self.armDir, GPIO.OUT)
-        GPIO.setup(self.arm, GPIO.IN)
-        GPIO.setup(self.lightPin, GPIO.OUT)'''
 
         # setup air pump (GPIO)
         self.pump = cfg["pump"]["MOTOR"]
@@ -111,52 +92,7 @@ class HectorHardware(api.HectorAPI):
     def light_off(self):
         log("turn off light")
         GPIO.output(self.lightPin, False)
-    '''
-    def arm_out(self, cback=None):
-        armMaxSteps = int(self.armNumSteps * 1.1)
-        GPIO.output(self.armEnable, False)
-        log("move arm out")
-        GPIO.output(self.armDir, True)
-        for i in range(armMaxSteps):
-            if self.arm_isInOutPos():
-                GPIO.output(self.armEnable, True)
-                log("arm is in OUT position")
-                if cback:
-                    cback("arm_out", 100)
-                return
-            GPIO.output(self.armStep, False)
-            sleep(.001)
-            GPIO.output(self.armStep, True)
-            sleep(.001)
-            if cback:
-                cback("arm_out", i * 100 / self.armNumSteps)
-        GPIO.output(self.armEnable, True)
-        log("arm is in OUT position (with timeout)")
 
-    def arm_in(self, cback=None):
-        self.arm_out(cback)
-        GPIO.output(self.armEnable, False)
-        log("move arm in")
-        GPIO.output(self.armDir, False)
-        for i in range(self.armNumSteps, 0, -1):
-            GPIO.output(self.armStep, False)
-            sleep(.001)
-            GPIO.output(self.armStep, True)
-            sleep(.001)
-            if cback and (i % 10 == 0):
-                cback("arm_in", i * 100 / self.armNumSteps)
-        GPIO.output(self.armEnable, True)
-        log("arm is in IN position")
-
-    def arm_isInOutPos(self):
-        pos = GPIO.input(self.arm)
-        pos = (pos != 0)
-        if pos:
-            log("arm_isInOutPos = True")
-        else:
-            log("arm_isInOutPos = False")
-        return pos
-        '''
     def scale_readout(self):
         weight = self.hx.get_weight_mean(5)
         return weight
