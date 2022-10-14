@@ -68,7 +68,7 @@ class HectorController:
         drink = drinks.available_drinks[id - 1]
         inglist = [{"name": drinks.ingredients[step[1]][0], "ammount": step[2]}
                    for step in drink["recipe"] if step[0] == "ingr"]
-        data = {"id": id, "name": drink["name"], "ingredients": inglist}
+        data = {"id": id, "name": drink["name"], "ingredients": inglist,"image":drink["image"]}
         debug(data)
         return json.dumps(data)
 
