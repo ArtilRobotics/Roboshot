@@ -56,7 +56,9 @@ class HectorController:
             data = {
                 "name": drinkitem["name"],
                 "id": idOfDrink,
-                "alcohol": drinks.alcoholic(drinkitem)}
+                "alcohol": drinks.alcoholic(drinkitem),
+                "image":drinkitem["image"]
+                }
             datalist.append(data)
             idOfDrink = idOfDrink + 1
         return json.dumps({"drinks": datalist})

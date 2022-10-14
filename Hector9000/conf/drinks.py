@@ -2,22 +2,33 @@
 from Hector9000.conf import database as DB
 drink_list = [
     {
-        "name": "Extra Schuss Mate",
-        "recipe": [("ingr", "mate", 50)]
-    }, {
+        "name": "Lizpy XD",
+        "recipe": [("ingr", "mate", 50)],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
+    },{
+        "name": "Bad Bunny",
+        "recipe": [
+            ("ingr", "vodka", 60),
+            ("ingr", "lime", 10),
+            ("ingr", "gibe", 180)
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
+    } ,{
         "name": "Moscow Mule",
         "recipe": [
             ("ingr", "vodka", 60),
             ("ingr", "lime", 10),
             ("ingr", "gibe", 180)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Gin & Tonic",
         "color": "white",
         "recipe": [
             ("ingr", "gin", 40),
             ("ingr", "tonic", 120),
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Screwdriver",
         "color": "orange",
@@ -25,7 +36,8 @@ drink_list = [
             ("ingr", "vodka", 40),
             ("ingr", "oj", 120),
             ("stir", True),
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Virgin Sunrise",
         "color": "red",
@@ -33,7 +45,8 @@ drink_list = [
             ("ingr", "oj", 140),
             ("ingr", "gren", 15),
             ("umb", True),
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Tequila Sunrise",
         "color": "darkred",
@@ -45,20 +58,23 @@ drink_list = [
             ("shake", True),
             ("ingr", "gren", 15),
             ("umb", True),
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     },
     {
         "name": "Tschunk",
         "recipe": [
             ("ingr", "rum", 40),
             ("ingr", "mate", 120)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Caipirinha",
         "recipe": [
             ("ingr", "rum", 40),
             ("ingr", "gga", 120)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Gin and Sin",
         "recipe": [
@@ -66,39 +82,45 @@ drink_list = [
             ("ingr", "lime", 20),
             ("ingr", "gren", 5),
             ("ingr", "oj", 40)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Horny Bull",
         "recipe": [
             ("ingr", "tequila", 20),
             ("ingr", "oj", 120)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Monkey Gland",
         "recipe": [
             ("ingr", "gin", 30),
             ("ingr", "oj", 40),
             ("ingr", "gren", 5)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Margarita",
         "recipe": [
             ("ingr", "vodka", 20),
             ("ingr", "oj", 120)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Shirley Temple",
         "recipe": [
             ("ingr", "gga", 100),
             ("ingr", "gren", 5)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Raspberry Zero",
         "recipe": [
             ("ingr", "oj", 160),
             ("ingr", "pine", 60),
             ("ingr", "gren", 20)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }, {
         "name": "Raspberry Pi",
         "recipe": [
@@ -106,7 +128,8 @@ drink_list = [
             ("ingr", "pine", 60),
             ("ingr", "gren", 20),
             ("ingr", "vodka", 20)
-        ]
+        ],
+        "image": "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/DJNTLM5KOJFCTB4VGVDENLJUSA.jpg"
     }
 ]
 
