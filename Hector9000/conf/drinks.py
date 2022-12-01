@@ -3,7 +3,7 @@ from Hector9000.conf import database as DB
 drink_list = [
     {
         "name": "Piña colada",
-        "recipe": [("ingr", "mate", 50)],
+        "recipe": [("ingr", "gren", 50)],
         "image": "../Hector9000/Images/pina-colada.png"
     },{
         "name": "Margarita frozen de fresa",

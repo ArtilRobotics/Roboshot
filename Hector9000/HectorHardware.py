@@ -294,10 +294,11 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    h.valve_close(3)
-    while 1:
+    #h.valve_close(9)
+    h.valve_open(9,1)
+    #while 1:
         #h.valve_open(3,1)
-        h.valve_dose(3,100,30,None,(0,100),"Hector9000/doseDrink/progress")
+        #h.valve_dose(3,100,30,None,(0,100),"Hector9000/doseDrink/progress")
         #sr = h.scale_readout()
         #print(sr)
 if __name__ == "__main__":

@@ -69,12 +69,12 @@ def do_light_off():
 
 def do_arm_out():
     log("drive arm out")
-    #hector.arm_out()
+    hector.arm_out()
 
 
 def do_arm_in():
     log("drive arm in")
-    #hector.arm_in()
+    hector.arm_in()
 
 
 def do_arm_isInOutPos():
