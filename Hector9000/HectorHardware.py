@@ -107,10 +107,12 @@ class HectorHardware(api.HectorAPI):
 
     def light_on(self):
         log("turn on light")
+        GPIO.setup(self.lightPin, GPIO.OUT)
         GPIO.output(self.lightPin, True)
 
     def light_off(self):
         log("turn off light")
+        GPIO.setup(self.lightPin, GPIO.OUT)
         GPIO.output(self.lightPin, False)
     '''
     def arm_out(self, cback=None):
@@ -160,10 +162,11 @@ class HectorHardware(api.HectorAPI):
         '''
     def scale_readout(self):
         weight = self.hx.get_weight_mean(5)
+        log(weight)
         return weight
 
     def scale_tare(self):
-        print("scale tare")
+        log("scale tare")
         self.hx.zero()
 
     def pump_start(self):
@@ -213,6 +216,7 @@ class HectorHardware(api.HectorAPI):
             #return -1
         t0 = time()
         balance = True
+        self.light_on()
         self.scale_tare()
         self.pump_start()
         self.valve_open(index)
@@ -252,6 +256,7 @@ class HectorHardware(api.HectorAPI):
             sleep(0.1)
         self.pump_stop()
         self.valve_close(index)
+        self.light_off()
         if cback:
             cback(progress[0] + progress[1])
         log("completed reset after dosing")
@@ -294,12 +299,9 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    #h.valve_close(9)
-    h.valve_open(9,1)
-    #while 1:
-        #h.valve_open(3,1)
-        #h.valve_dose(3,100,30,None,(0,100),"Hector9000/doseDrink/progress")
-        #sr = h.scale_readout()
-        #print(sr)
+    #h.light_on()
+    #h.valve_close(11)
+    #h.valve_open(11,1)
+    
 if __name__ == "__main__":
     main()

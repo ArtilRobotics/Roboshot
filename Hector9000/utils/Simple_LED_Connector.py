@@ -10,7 +10,7 @@ class Simple_LED_Connector(LEDStripAPI):
     def __init__(self):
         self.PORT = board.D18
         self.NUM = 60
-        self.NUMBASE = 10
+        self.NUMBASE = 5
         self.pixels = neopixel.NeoPixel(self.PORT, self.NUM)
         self.cols = [
             (255, 0, 0),
@@ -82,7 +82,7 @@ class Simple_LED_Connector(LEDStripAPI):
                 for i in range(self.NUM - self.NUMBASE):
                     self.pixels[self.NUMBASE + i] = self.cols[c]
                     if self.mode == 1:
-                        time.sleep(.05)
+                        time.sleep(.1)
                     else:
                         print("stopped animation")
                         while not self.mode == 1:

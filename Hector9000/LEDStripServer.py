@@ -106,6 +106,6 @@ client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 client.connect(MQTT_Server, port, 60)
 client.loop_start()
-while False:
+while True:
     pixels.loop()
     pixels.drinkfinish()

@@ -14,8 +14,8 @@ import os
 import paho.mqtt.client as mqtt
 from Hector9000.conf import HectorConfig as HC
 
-#Definido para que se conecte al hardware y no al simulador
 isSim = 0
+#isSim = os.environ.get('isHectorSim', 0)
 
 print(isSim)
 if isSim != 1:
@@ -74,7 +74,7 @@ def do_arm_out():
 
 def do_arm_in():
     log("drive arm in")
-    hector.arm_in()
+    #hector.arm_in()
 
 
 def do_arm_isInOutPos():
@@ -83,7 +83,7 @@ def do_arm_isInOutPos():
 
 
 def do_scale_readout():
-    log("query scale readout")
+    log("hola")
     return hector.scale_readout()
 
 
@@ -99,11 +99,12 @@ def do_pump_start():
 
 def do_reset():
     log("reseting")
-    do_pump_stop()
-    do_all_valve_close()
-    #do_arm_in()
-    do_light_off()
-    do_ping(2, 0)
+    do_scale_readout()
+    #do_light_on()
+    #do_pump_stop()
+    #do_all_valve_close()
+    #do_light_off()
+    #do_ping(2, 0)
 
 
 def do_pump_stop():
@@ -115,12 +116,12 @@ def do_all_valve_open():
     log("opening all valves")
     hector.light_on()
     time.sleep(1)
-    #hector.arm_in()
     hector.pump_stop()
-    for vnum in range(12):
+    for vnum in range(0,12):
         # log("Ventil %d wird geöffnet" % (vnum,))
-        time.sleep(0.5)
+        time.sleep(0.3)
         hector.valve_open(vnum)
+        time.sleep(0.5)
     hector.light_off()
 
 
@@ -130,10 +131,12 @@ def do_all_valve_close():
     time.sleep(1)
     #hector.arm_in()
     hector.pump_stop()
-    for vnum in range(12):
+    for vnum in range(0,12):
         # log("Ventil %d wird geschlossen" % (vnum,))
-        time.sleep(0.5)
+        time.sleep(0.3)
         hector.valve_close(vnum)
+        time.sleep(0.5)
+        log(vnum)
     hector.light_off()
 
 
@@ -282,13 +285,10 @@ def main():
     client.on_message = on_message
     client.on_connect = on_connect
     client.on_subscribe = on_subscribe
-    print("test")
     client.connect(MQTTIP, MQTTPORT, 60)
-    print("started")
-    do_all_valve_open()
+    log("started")
     while True:
         client.loop()
-
 
 if __name__ == "__main__":
     main()
