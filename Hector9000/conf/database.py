@@ -96,20 +96,6 @@ class Database:
                 """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('pine', 'Pineapple Juice');""")
             self.cur.execute(
                 """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('raspberry', 'Raspberry');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('gga', 'Ginger Ale');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('cocos', 'Cocos');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('mango', 'Mango Juice');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('lms', 'Limettensaft');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('coin', 'Cointreau', 1);""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('lime', 'Lime');""")
-            self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('gibe', 'Ginger Beer');""")
             self.con.commit()
 
     def _import_servos(self):

@@ -14,11 +14,12 @@ import sys
 
 from Hector9000.utils import HectorAPI as api
 from Hector9000.conf import HectorConfig
+from Hector9000.conf.HX711_Python3.hx711 import HX711
 
 # hardware modules
 import Adafruit_PCA9685
 import RPi.GPIO as GPIO
-from Hector9000.conf.HX711_Python3.hx711 import HX711
+GPIO.setwarnings(False)	
 
 # settings
 
@@ -62,7 +63,7 @@ class HectorHardware(api.HectorAPI):
         self.hx.zero()
         ratio = cfg["hx711"]["ref"]
         self.hx.set_scale_ratio(ratio) 
-        print(self.hx.get_weight_mean(20))
+        #print(self.hx.get_weight_mean(20))
         
 
         # setup servos (PCA9685)
@@ -77,30 +78,17 @@ class HectorHardware(api.HectorAPI):
         pcafreq = cfg["pca9685"]["freq"]
         self.pca = Adafruit_PCA9685.PCA9685()
         self.pca.set_pwm_freq(pcafreq)
-        '''
-        # setup arm stepper (A4988)
-        self.armEnable = cfg["a4988"]["ENABLE"]
-        self.armReset = cfg["a4988"]["RESET"]
-        self.armSleep = cfg["a4988"]["SLEEP"]
-        self.armStep = cfg["a4988"]["STEP"]
-        self.armDir = cfg["a4988"]["DIR"]
-        self.armNumSteps = cfg["a4988"]["numSteps"]
-        self.arm = cfg["arm"]["SENSE"]
-        GPIO.setup(self.armEnable, GPIO.OUT)
-        GPIO.output(self.armEnable, True)
-        GPIO.setup(self.armReset, GPIO.OUT)
-        GPIO.output(self.armReset, True)
-        GPIO.setup(self.armSleep, GPIO.OUT)
-        GPIO.output(self.armSleep, True)
-        GPIO.setup(self.armStep, GPIO.OUT)
-        GPIO.setup(self.armDir, GPIO.OUT)
-        GPIO.setup(self.arm, GPIO.IN)'''
+
         GPIO.setup(self.lightPin, GPIO.OUT)
 
-        # setup air pump (GPIO)
+        #setup water pump
+        self.bomba=cfg["bomba"]["PUMP"]
+        GPIO.setup(self.bomba,GPIO.OUT)
+        # setup air pump (GPIO) con control por PWM
         self.pump = cfg["pump"]["MOTOR"]
-        # pump off; will be turned on with GPIO.OUT (?!?)
         GPIO.setup(self.pump, GPIO.OUT)
+        self.pwm = GPIO.PWM(self.pump,3000) 
+
 
     def getConfig(self):
         return self.config
@@ -108,76 +96,50 @@ class HectorHardware(api.HectorAPI):
     def light_on(self):
         log("turn on light")
         GPIO.setup(self.lightPin, GPIO.OUT)
-        GPIO.output(self.lightPin, True)
+        GPIO.output(self.lightPin, False)
 
     def light_off(self):
         log("turn off light")
         GPIO.setup(self.lightPin, GPIO.OUT)
-        GPIO.output(self.lightPin, False)
-    '''
-    def arm_out(self, cback=None):
-        armMaxSteps = int(self.armNumSteps * 1.1)
-        GPIO.output(self.armEnable, False)
-        log("move arm out")
-        GPIO.output(self.armDir, True)
-        for i in range(armMaxSteps):
-            if self.arm_isInOutPos():
-                GPIO.output(self.armEnable, True)
-                log("arm is in OUT position")
-                if cback:
-                    cback("arm_out", 100)
-                return
-            GPIO.output(self.armStep, False)
-            sleep(.001)
-            GPIO.output(self.armStep, True)
-            sleep(.001)
-            if cback:
-                cback("arm_out", i * 100 / self.armNumSteps)
-        GPIO.output(self.armEnable, True)
-        log("arm is in OUT position (with timeout)")
+        GPIO.output(self.lightPin, True)
 
-    def arm_in(self, cback=None):
-        self.arm_out(cback)
-        GPIO.output(self.armEnable, False)
-        log("move arm in")
-        GPIO.output(self.armDir, False)
-        for i in range(self.armNumSteps, 0, -1):
-            GPIO.output(self.armStep, False)
-            sleep(.001)
-            GPIO.output(self.armStep, True)
-            sleep(.001)
-            if cback and (i % 10 == 0):
-                cback("arm_in", i * 100 / self.armNumSteps)
-        GPIO.output(self.armEnable, True)
-        log("arm is in IN position")
-
-    def arm_isInOutPos(self):
-        pos = GPIO.input(self.arm)
-        pos = (pos != 0)
-        if pos:
-            log("arm_isInOutPos = True")
-        else:
-            log("arm_isInOutPos = False")
-        return pos
-        '''
     def scale_readout(self):
-        weight = self.hx.get_weight_mean(5)
-        log(weight)
+        weight = self.hx.get_weight_mean(1)
+        print(weight)
         return weight
 
     def scale_tare(self):
-        log("scale tare")
+        print("scale tare")
         self.hx.zero()
 
+    #Water's pump activation and deactivation
+    def bomba_start(self):
+        print("Empezo")
+        GPIO.setup(self.bomba,GPIO.OUT)
+        GPIO.output(self.bomba,True)
+
+    def bomba_stop(self):
+        print("Paro")
+        GPIO.setup(self.bomba, GPIO.OUT)
+        GPIO.output(self.bomba,False)
+    
+    #Pump's activaction and deactivation
     def pump_start(self):
-        log("start pump")
-        GPIO.setup(self.pump, GPIO.OUT)
-        GPIO.output(self.pump,True)
+        print("start pump")
+        self.pwm.start(100)
+        # GPIO.setup(self.pump, GPIO.OUT)
+        # GPIO.output(self.pump,True)
+
+    
+    def pump_medium(self):
+        print("medium pump")
+        self.pwm.start(70)
 
     def pump_stop(self):
         log("stop pump")
-        GPIO.setup(self.pump, GPIO.OUT)
-        GPIO.output(self.pump,False)
+        # GPIO.setup(self.pump, GPIO.OUT)
+        # GPIO.output(self.pump,False)
+        self.pwm.start(0)
 
     def valve_open(self, index, open=1):
         if open == 0:
@@ -196,7 +158,7 @@ class HectorHardware(api.HectorAPI):
         self.pca.set_pwm(ch, 0, pos)
 
     def valve_close(self, index):
-        log("close valve")
+        print("close valve")
         self.valve_open(index, open=0)
 
     def valve_dose(
@@ -216,29 +178,45 @@ class HectorHardware(api.HectorAPI):
             #return -1
         t0 = time()
         balance = True
-        self.light_on()
+        if amount >= 30 and amount < 40:
+            porcentaje=amount*0.45
+            final_amount=amount*0.8
+        elif amount >= 50 and amount < 60:
+            porcentaje=amount*0.5
+            final_amount=amount*0.9
+        elif amount >= 20 and amount < 30:
+            porcentaje=amount*0.35
+            final_amount=amount*0.7
+
         self.scale_tare()
-        self.pump_start()
-        self.valve_open(index)
         sr = self.scale_readout()
-        if sr < -10:
+        self.pump_start()
+        self.light_on()
+        self.valve_open(index)
+        self.bomba_start()
+        if balance and sr < -10:
             amount = amount + sr
             balance = False
         last_over = False
         last = sr
         while True:
             sr = self.scale_readout()
-            print("Valor",sr)
-            if balance and sr < -10:
+            if sr < -5:
                 warning("weight abnormality: scale balanced")
                 amount = amount + sr
-                balance = False
-            if sr > amount:
+                # balance = False
+            
+            if sr<porcentaje:
+                self.pump_start()
+            elif sr > porcentaje:
+                self.pump_medium()
+
+            if sr >= final_amount:
                 if last_over:
                     print("dosing complete")
                     break
                 else:
-                    last_over = True
+                     last_over = True
             else:
                 last_over = False
             log("Read scale: %d" % sr)
@@ -253,9 +231,11 @@ class HectorHardware(api.HectorAPI):
                 if cback:
                     cback(progress[0] + progress[1])
                 return False
-            sleep(0.1)
-        self.pump_stop()
+            sleep(0.1)   
+        self.pump_stop()      
         self.valve_close(index)
+        self.bomba_stop()   
+        sleep(0.5)
         self.light_off()
         if cback:
             cback(progress[0] + progress[1])
@@ -294,14 +274,26 @@ class HectorHardware(api.HectorAPI):
         pulse *= 1000
         pulse //= pulse_length
         self.pca.set_pwm(channel, 0, pulse)
+
 # end class HectorHardware
 
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    #h.light_on()
-    #h.valve_close(11)
-    #h.valve_open(11,1)
-    
+    h.scale_tare()
+    # h.valve_dose(1,20,30)
+    # h.bomba_stop()
+    while True:
+    #     h.bomba_stop()
+        # sleep(6)
+        # h.bomba_stop()
+        # h.light_on()  
+        # h.valve_open(1,0)
+        # h.light_off()
+        h.scale_readout()
+        # h.pump_stop()
+        # sleep(5)
+        # h.pump_medium()
+        # sleep(5)
 if __name__ == "__main__":
     main()

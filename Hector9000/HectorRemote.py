@@ -48,6 +48,12 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
 
     def pub_with_subtopic(self, topic, message="true"):
         self.client.publish(self.MainTopic + topic, message)
+    
+    def all_valve_open(self):
+        self.pub_with_subtopic("all_valve_open")
+
+    def all_valve_close(self):
+        self.pub_with_subtopic("all_valve_close")
 
     def light_on(self):
         self.pub_with_subtopic("light_on")
@@ -86,6 +92,9 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
     def pump_stop(self):
         self.pub_with_subtopic("pump_stop")
 
+    def clean(self):
+        self.pub_with_subtopic("bomba_start")
+        
     def valve_open(self, index, open=1):
         self.pub_with_subtopic("valve_open")
 
@@ -102,15 +111,11 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
                 0,
                 100),
             topic=""):
+
         self.waiting_dose = True
         self.dose_sucessfull = False
-        self.pub_with_subtopic(
-            "valve_dose",
-            str(index) +
-            "," +
-            str(amount) +
-            "," +
-            str(timeout))
+        self.pub_with_subtopic("valve_dose",str(index) +"," +str(amount) +"," +str(timeout))
+            
         while self.waiting_dose:
             if self.client.want_write():
                 self.client.loop_write()
@@ -135,22 +140,26 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
     def cleanAndExit(self):
         self.pub_with_subtopic("clean_and_exit")
 
-    def clean(self, valve):
-        self.pub_with_subtopic("cleanMe", valve)
 
     def dry(self, valve):
         self.pub_with_subtopic("dryMe", valve)
 
-    def ledstripmessage(self, topic, color, type):
-        message = str(color[0]) + "," + str(color[1]) + \
-            "," + str(color[2]) + "," + str(type)
+    def ledstripmessage(self, topic, type):
+        message =  str(type) 
         self.client.publish(self.LEDTopic + topic, message)
 
-    def standart(self, color=(80, 80, 30), type=0):
-        self.ledstripmessage("standart", color, type)
+    #Funciones de las luces
+    #Funcion estandar
+    def standart(self, type=14):
+        self.ledstripmessage("standart", type)
 
-    def dosedrink(self, color=(20, 20, 255), type=0):
-        self.ledstripmessage("dosedrink", color, type)
+    #Funcion de dosificacion para la parte de adelante
+    def dosedrink(self,type=0):
+        self.ledstripmessage("dosedrink", type)
+    
+    #Funcion de dosificacion para los servos
+    def servos(self,servo):
+        self.ledstripmessage("servos", servo)
 
     def drinkfinish(
             self,

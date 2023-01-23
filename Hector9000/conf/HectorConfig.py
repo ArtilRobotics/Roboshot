@@ -5,7 +5,7 @@ config = {
     "hx711": {
         "CLK": 38,
         "DAT": 40,
-        "ref": -2461  # calibration yields 100 g <-> readout 214500
+        "ref": -2100 # calibration yields 100 g <-> readout 214500
     },
     "pca9685": {
         "freq": 60,
@@ -13,7 +13,7 @@ config = {
         "valvepositions": [  # (open, closed)
             (600, 390),  # ch 0
             (600, 390),  # ch 1
-            (375, 515),  # ch 2
+            (330, 515),  # ch 2
             (600, 390),  # ch 3
             (600, 450),  # ch 4
             (600, 390),  # ch 5
@@ -26,15 +26,18 @@ config = {
         ],
         "fingerchannel": 12,
         "fingerpositions": (280, 430, 450),  # retracted, above bell, bell
-        "lightpin": 22,
+        "lightpin": 16,
         "lightpwmchannel": 13,
         "lightpositions": (0, 500)
     },
 
     "pump": {
-        "MOTOR": 18
+        "MOTOR": 32
     },
 
+    "bomba":{
+        "PUMP": 35
+    },
      "ws2812": {
         "DIN": 12
     },

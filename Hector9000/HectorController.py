@@ -62,7 +62,7 @@ class HectorController:
             datalist.append(data)
             idOfDrink = idOfDrink + 1
         return json.dumps({"drinks": datalist})
-
+    
     def _get_drink_as_JSON(self, msg):
         id = int(msg.payload)
         drink = drinks.available_drinks[id - 1]
@@ -72,8 +72,9 @@ class HectorController:
         debug(data)
         return json.dumps(data)
 
-    def _get_ingredients(self, msg):
+    def _get_ingredients(self,msg):
         debug("get_AllIngredients_asJson")
+        # print(self.db.get_AllIngredients_asJson())
         return self.db.get_AllIngredients_asJson()
 
     def _get_servo(self, msg):
@@ -99,11 +100,11 @@ class HectorController:
         GPIO.output(26,True)
         ##############################################
         debug("Connected with result code " + str(rc))
-        debug("Transistor on")
 
         self.client.subscribe(self.TopicPrefix + "#")
-        if self.LED:
-            self.hector.standart(type=3)
+        # if self.LED:
+        #     self.hector.standart()
+
 
     def on_log(self, client, userdata, level, buf):
         pass  # log("LOG " + str(level) + ": " + str(userdata) + " -- " + str(buf))
@@ -147,6 +148,10 @@ class HectorController:
     def _do_dose_drink(self, msg):
         debug("start dosing drink")
         id = int(msg.payload)
+        # Obtengo si el residuo es cero o uno para la animacion de la parte delantera
+        a=id%2
+        self.hector.dosedrink(a)
+        #############################################################################
         drink = drinks.available_drinks[id - 1]
         # Return ID of drink to identify that drink creation starts
         self.client.publish(self.get_returnTopic(msg.topic), msg.payload)
@@ -162,19 +167,20 @@ class HectorController:
                 self.hector.dosedrink()
         if self.client.want_write():
             self.client.loop_write()
-        self.hector.light_on()
-        self.hector.arm_out()
         debug("dose drink preparation complete")
         for step in drink["recipe"]:
             debug("dosing progress: " + str(progress))
             if step[0] == "ingr":
                 pump = drinks.available_ingredients.index(step[1])
+                #Mando a crear las luces para los servos
+                self.hector.servos(pump+2)
                 # todo: cash value
                 cupsize = int(self.db.get_Setting("cupsize"))
-                ingamount = int((int(step[2]) / 400) * cupsize)
+                ingamount = int((int(step[2])))
                 self.hector.valve_dose(
                     index=int(pump),
                     amount=ingamount,
+                    timeout=30,
                     cback=self.dose_callback,
                     progress=(
                         progress,
@@ -187,10 +193,9 @@ class HectorController:
                     self.client.loop_write()
             progress = progress + steps
         debug("dosing drink finished")
-        if self.LED:
-            self.hector.drinkfinish()
+        # if self.LED:
+        #     self.hector.drinkfinish()
         time.sleep(1)
-        self.hector.arm_in()
         self.hector.light_off()
         self.hector.ping(3, 0)
         debug("reset hardware")
@@ -220,6 +225,7 @@ class HectorController:
                 self.hector.standart(color=color)
             elif currentTopic == self.TopicPrefix + "get_drinks":
                 self._do_get_drinks(msg)
+                self.hector.standart(14)
             elif currentTopic == self.TopicPrefix + "get_ingredientsForDrink":
                 self._do_get_drink(msg)
             elif currentTopic == self.TopicPrefix + "get_ingredientsList":
@@ -238,27 +244,22 @@ class HectorController:
                 self.hector.ping(2, 1)
             elif currentTopic == self.TopicPrefix + "doseDrink":
                 self._do_dose_drink(msg)
-                pass
+                # pass
             elif currentTopic == self.TopicPrefix + "cleanMe":
-                # ToDo: Develop proper methode in Server
-                for i in range(12):
-                    self.hector.clean(i)
-                pass
-            elif currentTopic == self.TopicPrefix + "dryMe":
-                for i in range(12):
-                    self.hector.dry(i)
-                pass
+                print("Limpieza")
+                self.hector.clean()
+                #pass
             elif currentTopic == self.TopicPrefix + "openAllValves":
                 self.hector.all_valve_open()
-                pass
+                # pass
             elif currentTopic == self.TopicPrefix + "closeAllValves":
                 self.hector.all_valve_close()
-                pass
+            #     pass
             else:
                 warning("unknown topic: " + currentTopic +
                         ", msg " + str(msg.payload))
 
-            debug("handled message " + currentTopic + " / " + str(msg.payload))
+            # debug("handled message " + currentTopic + " / " + str(msg.payload))
             while self.client.want_write():
                 self.client.loop_write()
 
@@ -278,7 +279,7 @@ class HectorController:
 
 def main():
     controller = HectorController()
-    controller.connect()
+    controller.connect()    
 
 
 if __name__ == "__main__":

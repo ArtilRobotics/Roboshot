@@ -18,7 +18,7 @@ class LEDStripAPI(object, metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def standart(self, color=(80, 80, 30), type = 0):
+    def standart(self, type = 0):
         pass
 
     @abc.abstractmethod

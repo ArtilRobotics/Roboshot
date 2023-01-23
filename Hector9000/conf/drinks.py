@@ -3,22 +3,23 @@ from Hector9000.conf import database as DB
 drink_list = [
     {
         "name": "Piña colada",
-        "recipe": [("ingr", "gren", 50)],
+        "recipe": [
+            ("ingr", "rum", 50),
+        ],
         "image": "../Hector9000/Images/pina-colada.png"
     },{
         "name": "Margarita frozen de fresa",
         "recipe": [
-            ("ingr", "vodka", 60),
-            ("ingr", "lime", 10),
-            ("ingr", "gibe", 180),
+            ("ingr", "gin", 60),
+            ("ingr", "gibe", 50),
         ],
         "image": "../Hector9000/Images/margarita-fresa.png"
     } ,{
         "name": "Margarita frozen de limón",
         "recipe": [
-            ("ingr", "vodka", 60),
-            ("ingr", "lime", 10),
-            ("ingr", "gibe", 180),
+            ("ingr", "tonic", 35),
+            ("ingr", "gga", 40),
+            ("ingr", "oj", 110),
         ],
         "image": "../Hector9000/Images/margarita-frozen.png"
     }, {
@@ -35,6 +36,8 @@ drink_list = [
         "recipe": [
             ("ingr", "vodka", 40),
             ("ingr", "oj", 120),
+            ("ingr", "rum", 50),
+            ("ingr", "gibe", 70),
             ("stir", True),
         ],
         "image": "../Hector9000/Images/cosmopolitan.png"
@@ -49,16 +52,6 @@ drink_list = [
         "image": "../Hector9000/Images/mojito.png"
     }
 ]
-
-actions = {
-    # code      text     is_automatic?
-    "ingr": ("Add Ingredient", True),
-    "ping": ("Ring Bell", True),
-    "shake": ("Shake", False),
-    "stir": ("Stir", False),
-    "ice": ("Add Ice", False),
-    "umb": ("Add Umbrella", False),
-}
 
 
 myDB = DB.Database()
@@ -80,3 +73,4 @@ def alcoholic(drink):
 available_drinks = [
     drink for drink in drink_list if doable(
         drink, available_ingredients)]
+

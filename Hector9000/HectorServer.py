@@ -98,13 +98,13 @@ def do_pump_start():
 
 
 def do_reset():
-    log("reseting")
-    do_scale_readout()
-    #do_light_on()
-    #do_pump_stop()
-    #do_all_valve_close()
-    #do_light_off()
-    #do_ping(2, 0)
+    print("reseting")
+    do_light_on()
+    do_bomba_stop()
+    do_pump_stop()
+    do_all_valve_close()
+    do_light_off()
+
 
 
 def do_pump_stop():
@@ -159,7 +159,15 @@ def do_ping(num, retract):
     log("ping %d times" % num)
     hector.ping(num, retract)
 
+def do_clean():
+    print("Limpieza")
+    hector.bomba_start()
+    time.sleep(6)
+    hector.bomba_stop()
 
+def do_bomba_stop():
+    hector.bomba_stop()
+    
 # high-level functions
 
 def dry(pump):
@@ -188,7 +196,7 @@ def clean(pump):
 
 
 def on_message(client, userdata, msg):
-    log("on_message: " + str(msg.topic) + "," + str(msg.payload))
+    print("on_message: " + str(msg.topic) + "," + str(msg.payload))
     topic = str(msg.topic)
     if (topic.endswith("return") or topic.endswith("progress")):
         return
@@ -203,7 +211,8 @@ def on_message(client, userdata, msg):
     elif topic == "reset":
         do_reset()
     elif topic == "arm_out":
-        do_arm_out()
+        print("hola")
+        # do_arm_out()
     elif topic == "arm_in":
         do_arm_in()
     elif topic == "arm_position":
@@ -222,6 +231,8 @@ def on_message(client, userdata, msg):
         do_all_valve_open()
     elif topic == "all_valve_close":
         do_all_valve_close()
+    elif topic == "bomba_start":
+        do_clean()
     elif topic == "valve_open":
         if not msg.payload.decode("utf-8").isnumeric():
             error("Wrong payload in valve open")
