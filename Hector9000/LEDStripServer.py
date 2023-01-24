@@ -13,7 +13,6 @@ def debugOut(message):
 
 def on_message(client, userdata, msg):
     print("message recieved")
-    pixels.drinkfinish()
     print("LED_Server on_message: " + str(msg.topic) + " , " + msg.payload.decode("utf-8"))
     topic = str(msg.topic)
     topic = topic.replace(MainTopic, "")
@@ -22,16 +21,16 @@ def on_message(client, userdata, msg):
         print(args[0])
         pixels.mode=args[0]
     elif topic == "dosedrink":
-        args = tuple(msg.payload.decode("utf-8").split(","))
+        args = list(map(int, msg.payload.decode("utf-8").split(",")))
         print(args[0])
         if args[0] == 0:
             pixels.mode = 15
         elif args[0] ==1:
             pixels.mode = 16
     elif topic == "servos":
-        args = tuple(msg.payload.decode("utf-8").split(","))
+        args = list(map(int, msg.payload.decode("utf-8").split(",")))
         print(args[0])
-        pixels.mode=args[0]
+        pixels.mode = args[0]
     else:
         debugOut("Unknown topic")
 

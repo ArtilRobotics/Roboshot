@@ -19,35 +19,30 @@ drink_list = [
         "recipe": [
             ("ingr", "tonic", 35),
             ("ingr", "gga", 40),
-            ("ingr", "oj", 110),
+            ("ingr", "mate", 110),
         ],
         "image": "../Hector9000/Images/margarita-frozen.png"
     }, {
         "name": "Pisco Sunrise",
-        "color": "white",
         "recipe": [
-            ("ingr", "gin", 40),
-            ("ingr", "tonic", 120),
+            ("ingr", "oj", 40),
+            ("ingr", "gga", 120),
         ],
         "image": "../Hector9000/Images/pisco-sunrise.png"
     }, {
         "name": "Cosmopolitan",
-        "color": "orange",
         "recipe": [
-            ("ingr", "vodka", 40),
-            ("ingr", "oj", 120),
-            ("ingr", "rum", 50),
+            ("ingr", "rum", 40),
+            ("ingr", "gin", 120),
+            ("ingr", "tonic", 50),
             ("ingr", "gibe", 70),
-            ("stir", True),
         ],
         "image": "../Hector9000/Images/cosmopolitan.png"
     }, {
         "name": "Mojito",
-        "color": "red",
         "recipe": [
             ("ingr", "oj", 140),
             ("ingr", "gren", 15),
-            ("umb", True),
         ],
         "image": "../Hector9000/Images/mojito.png"
     }

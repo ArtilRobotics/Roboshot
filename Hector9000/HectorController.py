@@ -149,8 +149,8 @@ class HectorController:
         debug("start dosing drink")
         id = int(msg.payload)
         # Obtengo si el residuo es cero o uno para la animacion de la parte delantera
-        a=id%2
-        self.hector.dosedrink(a)
+        # a=id%2
+        # self.hector.dosedrink(a)
         #############################################################################
         drink = drinks.available_drinks[id - 1]
         # Return ID of drink to identify that drink creation starts

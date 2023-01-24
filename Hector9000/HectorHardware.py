@@ -181,6 +181,9 @@ class HectorHardware(api.HectorAPI):
         if amount >= 30 and amount < 40:
             porcentaje=amount*0.45
             final_amount=amount*0.8
+        elif amount >= 40:
+            porcentaje=amount*0.48
+            final_amount=amount*0.8
         elif amount >= 50 and amount < 60:
             porcentaje=amount*0.5
             final_amount=amount*0.9
@@ -280,17 +283,21 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    h.scale_tare()
+    # h.scale_tare()
     # h.valve_dose(1,20,30)
-    # h.bomba_stop()
+    # h.pump_start()
     while True:
+        h.pump_start()
+        # sleep(5)
+        # h.pump_stop()
+        # sleep(5)
     #     h.bomba_stop()
         # sleep(6)
         # h.bomba_stop()
         # h.light_on()  
         # h.valve_open(1,0)
         # h.light_off()
-        h.scale_readout()
+        # h.scale_readout()
         # h.pump_stop()
         # sleep(5)
         # h.pump_medium()
