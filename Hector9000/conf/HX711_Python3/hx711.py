@@ -659,7 +659,7 @@ class HX711:
             return True
 
 
-    def outliers_filter(self, data_list, stdev_thresh = 1.0):
+    def outliers_filter(self, data_list, stdev_thresh = 4.0):
         """
         It filters out outliers from the provided list of int.
         Median is used as an estimator of outliers.

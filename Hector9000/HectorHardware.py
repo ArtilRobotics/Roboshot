@@ -11,14 +11,15 @@ from fileinput import close
 
 from time import sleep, time
 import sys
+import math
 
 from Hector9000.utils import HectorAPI as api
 from Hector9000.conf import HectorConfig
-from Hector9000.conf.HX711_Python3.hx711 import HX711
 
 # hardware modules
 import Adafruit_PCA9685
 import RPi.GPIO as GPIO
+from Hector9000.conf.HX711_Python3.hx711 import HX711
 GPIO.setwarnings(False)	
 
 # settings
@@ -178,18 +179,29 @@ class HectorHardware(api.HectorAPI):
             #return -1
         t0 = time()
         balance = True
-        if amount >= 30 and amount < 40:
-            porcentaje=amount*0.45
-            final_amount=amount*0.8
-        elif amount >= 40:
-            porcentaje=amount*0.48
-            final_amount=amount*0.8
-        elif amount >= 50 and amount < 60:
-            porcentaje=amount*0.5
-            final_amount=amount*0.9
-        elif amount >= 20 and amount < 30:
-            porcentaje=amount*0.35
-            final_amount=amount*0.7
+
+        if amount < 30:
+            porcentaje = amount * 0.4
+        else:
+            porcentaje = amount * 0.5
+        
+        a= math.pow(amount,3)
+        b= math.pow(amount,2)
+        c= amount
+
+        final_amount= -0.00003*a+0.0065*b+0.6455*c-1.6523
+        # if amount >= 30 and amount < 40:
+        #     porcentaje=amount*0.45
+        #     final_amount=amount*0.8
+        # elif amount >= 40:
+        #     porcentaje=amount*0.48
+        #     final_amount=amount*0.8
+        # elif amount >= 50 and amount < 60:
+        #     porcentaje=amount*0.5
+        #     final_amount=amount*0.9
+        # elif amount >= 20 and amount < 30:
+        #     porcentaje=amount*0.35
+        #     final_amount=amount*0.7
 
         self.scale_tare()
         sr = self.scale_readout()
@@ -283,11 +295,21 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    # h.scale_tare()
-    # h.valve_dose(1,20,30)
+    # h.light_on()
+    # h.valve_open(10,1)
+    # sleep(2)
+    # h.valve_open(10,0)
     # h.pump_start()
-    while True:
-        h.pump_start()
+    # sleep(7)
+    # h.pump_stop()
+    # h.valve_open(8,0)
+    # sleep(0.5)
+    # h.light_off()
+    # h.scale_tare()
+    # h.valve_dose(11,15,30)
+    h.bomba_stop()
+    # while True:
+        # h.pump_start()
         # sleep(5)
         # h.pump_stop()
         # sleep(5)

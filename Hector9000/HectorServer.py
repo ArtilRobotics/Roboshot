@@ -115,10 +115,7 @@ def do_pump_stop():
 def do_all_valve_open():
     log("opening all valves")
     hector.light_on()
-    time.sleep(1)
-    hector.pump_stop()
     for vnum in range(0,12):
-        # log("Ventil %d wird geöffnet" % (vnum,))
         time.sleep(0.3)
         hector.valve_open(vnum)
         time.sleep(0.5)
@@ -129,7 +126,6 @@ def do_all_valve_close():
     log("close all valves")
     hector.light_on()
     time.sleep(1)
-    #hector.arm_in()
     hector.pump_stop()
     for vnum in range(0,12):
         # log("Ventil %d wird geschlossen" % (vnum,))

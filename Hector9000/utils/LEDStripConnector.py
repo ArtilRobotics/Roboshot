@@ -33,8 +33,8 @@ class LEDStripConnector(LEDStripAPI):
 
         #Colores para los servos
         self.colorservos = [
-            (0,134,255),
-            (225,0,196),
+            (255,168,0),
+            (255,227,0),
         ]
         #Colores de la malla
         self.malla=(138,159,255)
@@ -78,10 +78,10 @@ class LEDStripConnector(LEDStripAPI):
         #Mode inicial
         if self.mode == 1:
             self.mode1()
-        # #Mode servo 0
-        # elif self.mode == 2:
-        #     self.servos(0)
-        #     self.dosedrink()
+        #Mode servo 0
+        elif self.mode == 2:
+            self.servos(0)
+            self.dosedrink()
         # elif self.mode == 3:
         #     self.servos(1)
         #     # self.dosedrink()
@@ -180,8 +180,19 @@ class LEDStripConnector(LEDStripAPI):
             print("Entre al servo 1")
             for c in range(self.NUMSERVOS):
                 for i in it.chain(range(15,31),range(61,79)):
+                    self.pixels.fill(self.malla,32,60)
+                    self.pixels.fill(self.malla,79,201)
+                    self.pixels.fill((188,97,255),0,14)
+                    self.pixels.fill((110,231,255),31,44)
                     self.pixels[i]=(self.colorservos[c])
                     time.sleep(0.005)
+                for i in range(15,31):
+                    self.pixels.set_pixel_line(15+i,17+i,(169,255,0))
+                    self.pixels.set_pixel_line(18+i,20+i,(0,255,220))
+                    self.pixels.set_pixel_line(21+i,23+i,(255,162,0))
+                    self.pixels.set_pixel_line(24+i,26+i,(144,249,255))
+                    self.pixels.set_pixel_line(27+i,29+i,(255,146,250))
+                    self.pixels.set_pixel_line(29+i,31,(255,45,152))
                 
         elif servo == 2:
             for i in it.chain(range(44,101),range(104,107),range(110,134),range(146,201)):
