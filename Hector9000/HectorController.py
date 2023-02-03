@@ -158,13 +158,13 @@ class HectorController:
         progress = 0
         self.client.publish(self.get_progressTopic(msg.topic), progress)
         steps = 100 / len(drink["recipe"])
-        if self.LED:
-            if "color" in drink.keys():
-                self.hector.dosedrink(
-                    color=webcolors.name_to_rgb(
-                        drink["color"]))
-            else:
-                self.hector.dosedrink()
+        # if self.LED:
+        #     if "color" in drink.keys():
+        #         self.hector.dosedrink(
+        #             color=webcolors.name_to_rgb(
+        #                 drink["color"]))
+        #     else:
+        #         self.hector.dosedrink()
         if self.client.want_write():
             self.client.loop_write()
         debug("dose drink preparation complete")
@@ -279,8 +279,7 @@ class HectorController:
 
 def main():
     controller = HectorController()
-    controller._do_get_drink("true")
-    # controller.connect()    
+    controller.connect()    
 
 
 if __name__ == "__main__":
