@@ -185,14 +185,14 @@ class HectorHardware(api.HectorAPI):
         else:
             porcentaje = amount * 0.5
         
-        a= math.pow(amount,3)
-        b= math.pow(amount,2)
-        c= amount
+        # a= math.pow(amount,3)
+        # b= math.pow(amount,2)
+        # c= amount
 
-        final_amount= -0.00003*a+0.0065*b+0.6455*c-1.6523
-        # if amount >= 30 and amount < 40:
-        #     porcentaje=amount*0.45
-        #     final_amount=amount*0.8
+        # final_amount= -0.00003*a+0.0065*b+0.6455*c-1.6523
+        if amount > 65 and amount <= 70:
+            porcentaje=amount*0.45
+            final_amount=amount*0.8
         # elif amount >= 40:
         #     porcentaje=amount*0.48
         #     final_amount=amount*0.8
@@ -295,34 +295,9 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
-    # h.light_on()
-    # h.valve_open(10,1)
-    # sleep(2)
-    # h.valve_open(10,0)
-    # h.pump_start()
-    # sleep(7)
-    # h.pump_stop()
-    # h.valve_open(8,0)
-    # sleep(0.5)
-    # h.light_off()
-    # h.scale_tare()
     # h.valve_dose(11,15,30)
-    h.bomba_stop()
+    # h.bomba_stop()
     # while True:
         # h.pump_start()
-        # sleep(5)
-        # h.pump_stop()
-        # sleep(5)
-    #     h.bomba_stop()
-        # sleep(6)
-        # h.bomba_stop()
-        # h.light_on()  
-        # h.valve_open(1,0)
-        # h.light_off()
-        # h.scale_readout()
-        # h.pump_stop()
-        # sleep(5)
-        # h.pump_medium()
-        # sleep(5)
 if __name__ == "__main__":
     main()

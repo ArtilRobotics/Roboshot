@@ -279,7 +279,8 @@ class HectorController:
 
 def main():
     controller = HectorController()
-    controller.connect()    
+    controller._do_get_drink("true")
+    # controller.connect()    
 
 
 if __name__ == "__main__":

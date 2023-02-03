@@ -11,7 +11,8 @@ class Database:
     con = None
     cur = None
 
-    def __init__(self, dbname="h9k"):
+    # Voy a cambiar el database por el de roboshot
+    def __init__(self, dbname="data_base_roboshot"):
         self.con = lite.connect("./" + dbname + ".db")
         self.cur = self.con.cursor()
         self.createIfNotExists()
@@ -73,57 +74,57 @@ class Database:
     def _import_Ingredients(self):
         if not self._check_Table_is_Filled("Ingredients"):
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('gin', 'Gin', 1);""")
+                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('lim', 'Jugo de limón', 1);""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('rum', 'Rum', 1);""")
+                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('nar', 'Jugo de naranja', 1);""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('vodka', 'Vodka', 1);""")
+                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('mar', 'Judo de maracuyá', 1);""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('tequila', 'Tequila', 1);""")
+                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('siro', 'Sirope', 1);""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('tonic', 'Tonic Water');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('sir_pic', 'Sirope picante');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('coke', 'Cola');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('sir_hierba', 'Sirope hierba buena');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('oj', 'Orange Juice');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('vodka', 'Vodka');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('gren', 'Grenadine');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('teq', 'Tequila');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('mmix', 'Margarita Mix', 1);""")
+                """INSERT INTO "Ingredients" ("Code", "Name", "IsAlcoholic") VALUES ('ron_b', 'Ron blanco', 1);""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('mate', 'Mate');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('vino', 'Vino tinto');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('pine', 'Pineapple Juice');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('gin', 'Ginger Ale');""")
             self.cur.execute(
-                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('raspberry', 'Raspberry');""")
+                """INSERT INTO "Ingredients" ("Code", "Name") VALUES ('sprite', 'Sprite');""")
             self.con.commit()
 
     def _import_servos(self):
         if not self._check_Table_is_Filled('servos'):
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (1, 'gren');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (1, 'sprite');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (2, 'rum');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (2, 'sir_pic');""")
             self.cur.execute(
                 """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (3, 'vodka');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (4, 'gin');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (4, 'lim');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (5, 'tequila');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (5, 'nar');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (6, 'gibe');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (6, 'vino');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (7, 'lime');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (7, 'gin');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (8, 'tonic');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (8, 'ron_b');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (9, 'mate');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (9, 'siro');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (10, 'gga');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (10, 'teq');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (11, 'pine');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (11, 'mar');""")
             self.cur.execute(
-                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (12, 'oj');""")
+                """INSERT INTO "Servos" ("ServoNr", "Code") VALUES (12, 'sir_hierba');""")
             self.con.commit()
 
     def _import_settings(self):
