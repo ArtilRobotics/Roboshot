@@ -5,7 +5,7 @@ config = {
     "hx711": {
         "CLK": 38,
         "DAT": 40,
-        "ref": -2106 # calibration yields 100 g <-> readout 214500
+        "ref": -1905 # calibration yields 100 g <-> readout 214500
     },
     "pca9685": {
         "freq": 60,
@@ -20,7 +20,7 @@ config = {
             (650, 470),  # ch 6
             (630, 410),  # ch 7
             (600, 360),  # ch 8
-            (600, 380),  # ch 9
+            (600, 360),  # ch 9
             (380, 550),  # ch 10
             (600, 380)  # ch 11
         ],
