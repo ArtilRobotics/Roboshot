@@ -148,9 +148,7 @@ class HectorController:
     def _do_dose_drink(self, msg):
         debug("start dosing drink")
         id = int(msg.payload)
-        # Obtengo si el residuo es cero o uno para la animacion de la parte delantera
-        # a=id%2
-        # self.hector.dosedrink(a)
+        self.hector.dosedrink(2)
         #############################################################################
         drink = drinks.available_drinks[id - 1]
         # Return ID of drink to identify that drink creation starts
@@ -172,8 +170,6 @@ class HectorController:
             debug("dosing progress: " + str(progress))
             if step[0] == "ingr":
                 pump = drinks.available_ingredients.index(step[1])
-                #Mando a crear las luces para los servos
-                self.hector.servos(pump+2)
                 # todo: cash value
                 cupsize = int(self.db.get_Setting("cupsize"))
                 ingamount = int((int(step[2])))
@@ -225,7 +221,7 @@ class HectorController:
                 self.hector.standart(color=color)
             elif currentTopic == self.TopicPrefix + "get_drinks":
                 self._do_get_drinks(msg)
-                self.hector.standart(14)
+                self.hector.standart(1)
             elif currentTopic == self.TopicPrefix + "get_ingredientsForDrink":
                 self._do_get_drink(msg)
             elif currentTopic == self.TopicPrefix + "get_ingredientsList":
@@ -244,17 +240,18 @@ class HectorController:
                 self.hector.ping(2, 1)
             elif currentTopic == self.TopicPrefix + "doseDrink":
                 self._do_dose_drink(msg)
-                # pass
+                # self.hector.dosedrink(2)
+                pass
             elif currentTopic == self.TopicPrefix + "cleanMe":
                 print("Limpieza")
                 self.hector.clean()
-                #pass
+                pass
             elif currentTopic == self.TopicPrefix + "openAllValves":
                 self.hector.all_valve_open()
-                # pass
+                pass
             elif currentTopic == self.TopicPrefix + "closeAllValves":
                 self.hector.all_valve_close()
-            #     pass
+                pass
             else:
                 warning("unknown topic: " + currentTopic +
                         ", msg " + str(msg.payload))
@@ -280,7 +277,6 @@ class HectorController:
 def main():
     controller = HectorController()
     controller.connect()    
-
 
 if __name__ == "__main__":
     main()

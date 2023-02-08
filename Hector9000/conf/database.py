@@ -207,7 +207,7 @@ class Database:
             }
             datalist.append(data)
 
-        return json.dumps({"Ingredients": datalist})
+        return json.dumps({"ingredients": datalist})
 
     def add_Ingredient(self, short: str, long: str, isAlcohol: int):
         self.cur.execute(

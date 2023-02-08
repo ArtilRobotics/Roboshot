@@ -338,7 +338,7 @@ class HX711:
                         'Time elapsed: {}'.format(end_counter - start_counter))
                 # hx711 has turned off. First few readings are inaccurate.
                 # Despite it, this reading was ok and data can be used.
-                result = self.get_raw_data_mean(6)  # set for the next reading.
+                result = self.get_raw_data_mean(20)  # set for the next reading.
                 if result == False:
                     return False
         return True
@@ -652,7 +652,7 @@ class HX711:
         """
         self.power_down()
         self.power_up()
-        result = self.get_raw_data_mean(6)
+        result = self.get_raw_data_mean(20)
         if result:
             return False
         else:

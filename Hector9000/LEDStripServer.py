@@ -23,14 +23,7 @@ def on_message(client, userdata, msg):
     elif topic == "dosedrink":
         args = list(map(int, msg.payload.decode("utf-8").split(",")))
         print(args[0])
-        if args[0] == 0:
-            pixels.mode = 15
-        elif args[0] ==1:
-            pixels.mode = 16
-    elif topic == "servos":
-        args = list(map(int, msg.payload.decode("utf-8").split(",")))
-        print(args[0])
-        pixels.mode = args[0]
+        pixels.mode=args[0]
     else:
         debugOut("Unknown topic")
 

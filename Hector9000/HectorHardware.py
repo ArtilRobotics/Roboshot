@@ -134,7 +134,7 @@ class HectorHardware(api.HectorAPI):
     
     def pump_medium(self):
         print("medium pump")
-        self.pwm.start(40)
+        self.pwm.start(65)
 
     def pump_stop(self):
         log("stop pump")
@@ -180,37 +180,42 @@ class HectorHardware(api.HectorAPI):
         t0 = time()
         balance = True
 
+        if (index!=10):
+            self.valve_close(10)
+            sleep(0.5)
         if amount <= 30:
             porcentaje = amount * 0.3
-        elif amount >30 and amount <= 60: 
-            porcentaje = amount * 0.4
-        elif amount > 60 and amount <= 150:
-            porcentaje = amount * 0.65
-        elif amount > 150 and amount <= 200:
-            porcentaje = amount * 0.725
+        elif amount >30 and amount <= 75: 
+            porcentaje = amount * 0.45
+        elif amount > 75 and amount <= 90:
+            porcentaje = amount * 0.55
+        elif amount > 90 and amount <= 120:
+            porcentaje = amount * 0.75
 
         a= math.pow(amount,5)
         b= math.pow(amount,4)
         c= math.pow(amount,3)
         d= math.pow(amount,2)
 
-
-        final_amount= -(0.000000004*a)+(0.000002*b)-(0.0004*c)+(0.0285*d)+(0.0727*amount)+2.826
-
+        print(amount)
+        final_amount = (-0.000000002*a)+(0.0000004*b)-(0.00003*c)+(0.0017*d)+(0.8638*amount)-3.1837
+        final_amount=round(final_amount)
+    
+        print(final_amount)
         self.scale_tare()
         sr = self.scale_readout()
-        self.pump_start()
         self.light_on()
+        self.pump_start()
         self.valve_open(index)
         self.bomba_start()
-        if balance and sr < -10:
+        if balance and sr < -1.5 and sr > -5:
             amount = amount + sr
             balance = False
         last_over = False
         last = sr
         while True:
             sr = self.scale_readout()
-            if sr < -5:
+            if sr < -1 and sr > -5:
                 warning("weight abnormality: scale balanced")
                 amount = amount + sr
                 # balance = False
@@ -243,8 +248,10 @@ class HectorHardware(api.HectorAPI):
             sleep(0.1)   
         self.pump_stop()      
         self.valve_close(index)
-        self.bomba_stop()   
-        sleep(0.5)
+        self.bomba_stop()  
+        if(index != 10):
+            self.valve_close(10)
+            sleep(0.5)
         self.light_off()
         if cback:
             cback(progress[0] + progress[1])
@@ -289,11 +296,18 @@ class HectorHardware(api.HectorAPI):
 def main():
     co= HectorConfig.config
     h=HectorHardware(co)
+    h.bomba_stop()
     # h.scale_tare()
-    h.valve_dose(1,180,30)
-    # h.bomba_stop()
+    # h.light_on()
+    # h.valve_open(11,1)
+    # sleep(3)
+    # h.valve_open(11,0)
+    # sleep(0.5)
+    # h.light_off()
+    # h.valve_dose(7,30,30)
     # while True:
-    #     h.scale_readout()
+    #       h.bomba_start()
+        # h.scale_readout()
         # h.pump_start()
 if __name__ == "__main__":
     main()

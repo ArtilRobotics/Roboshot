@@ -18,14 +18,17 @@ class LEDStripAPI(object, metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def standart(self,type):
+    def standart(self, color=(80, 80, 30), type = 0):
         pass
 
     @abc.abstractmethod
-    def dosedrink(self,type):
+    def dosedrink(self, color=(20, 20, 255), type = 0):
         pass
 
     @abc.abstractmethod
-    def servos(self,type):
+    def drinkfinish(self, color=(80, 80, 30), type = 0):
         pass
 
+    @abc.abstractmethod
+    def standby(self, color=(80, 80, 30), type = 0):
+        pass

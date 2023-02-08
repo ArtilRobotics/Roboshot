@@ -5,7 +5,7 @@ config = {
     "hx711": {
         "CLK": 38,
         "DAT": 40,
-        "ref": -1905 # calibration yields 100 g <-> readout 214500
+        "ref": -1992 # calibration yields 100 g <-> readout 214500
     },
     "pca9685": {
         "freq": 60,
@@ -18,11 +18,11 @@ config = {
             (600, 435),  # ch 4
             (600, 390),  # ch 5
             (650, 470),  # ch 6
-            (630, 410),  # ch 7
+            (150, 410),  # ch 7
             (600, 360),  # ch 8
             (600, 360),  # ch 9
             (380, 550),  # ch 10
-            (600, 380)  # ch 11
+            (150, 400 )  # ch 11
         ],
         "fingerchannel": 12,
         "fingerpositions": (280, 430, 450),  # retracted, above bell, bell

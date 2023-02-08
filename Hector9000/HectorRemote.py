@@ -150,16 +150,12 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
 
     #Funciones de las luces
     #Funcion estandar
-    def standart(self, type=14):
+    def standart(self, type=0):
         self.ledstripmessage("standart", type)
 
     #Funcion de dosificacion para la parte de adelante
     def dosedrink(self,type=0):
         self.ledstripmessage("dosedrink", type)
-    
-    #Funcion de dosificacion para los servos
-    def servos(self,servo):
-        self.ledstripmessage("servos", servo)
 
     def drinkfinish(
             self,
