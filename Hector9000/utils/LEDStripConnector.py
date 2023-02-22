@@ -209,6 +209,10 @@ class LEDStripConnector(LEDStripAPI):
                         self.pixels[202-j]=self.cols_2[i]
                         self.pixels[j]=self.cols_2[i]
                 self.pixels.show()
+                if self.mode == 1:
+                    j=100
+                    a=4
+                    i=1
                     
 if __name__ == "__main__":
     test = LEDStripConnector()

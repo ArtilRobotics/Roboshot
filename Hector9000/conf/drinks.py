@@ -52,7 +52,7 @@ drink_list = [
             ("ingr", "siro", 30),
             ("ingr", "teq", 90)
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/margarita-maracuya.png"
     }, {
         "name": "Tinto de verano",
         "recipe": [
@@ -61,7 +61,7 @@ drink_list = [
             ("ingr", "vino", 180),
             ("ingr", "sprite", 120) 
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/tinto-verano.png"
     }, {
         "name": "Moscow mule",
         "recipe": [
@@ -71,7 +71,7 @@ drink_list = [
             ("ingr", "vodka", 90), 
             ("ingr", "gin", 180), 
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/moscow-mule.png"
     }, {
         "name": "Tequila mule",
         "recipe": [
@@ -80,7 +80,7 @@ drink_list = [
             ("ingr", "teq", 90),
             ("ingr", "gin", 180)
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/tequila-mule.png"
     }, {
         "name": "Margarita jalapeño",
         "recipe": [
@@ -88,7 +88,7 @@ drink_list = [
             ("ingr", "sir_pic", 60),
             ("ingr", "teq", 90)
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/margarita-jalapeno.png"
     }, {
         "name": "Vodka de verano",
         "recipe": [
@@ -97,7 +97,7 @@ drink_list = [
             ("ingr", "vodka", 60),
             ("ingr", "vino", 60)
         ],
-        "image": "../Hector9000/Images/margarita-limon.png"
+        "image": "../Hector9000/Images/vodka-verano.png"
     }
 ]
 

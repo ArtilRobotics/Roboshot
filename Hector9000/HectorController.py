@@ -192,9 +192,9 @@ class HectorController:
         # if self.LED:
         #     self.hector.drinkfinish()
         time.sleep(1)
-        self.hector.light_off()
         self.hector.ping(3, 0)
         debug("reset hardware")
+        self.hector.standart(1)
         self.client.publish(self.get_progressTopic(msg.topic), "end", qos=1)
         while not self.client.want_write():
             pass
