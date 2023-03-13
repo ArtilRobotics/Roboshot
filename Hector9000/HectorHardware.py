@@ -183,6 +183,7 @@ class HectorHardware(api.HectorAPI):
         if index!=10:
             self.valve_close(10)
             sleep(0.5)
+
         if amount <= 30:
             porcentaje = amount * 0.3
         elif amount >30 and amount <= 75: 
@@ -191,151 +192,12 @@ class HectorHardware(api.HectorAPI):
             porcentaje = amount * 0.55
         elif amount > 90 and amount <= 120:
             porcentaje = amount * 0.75
-        elif amount > 120 and amount <=180:
+        elif amount > 120:
             porcentaje = amount * 0.85
-
-        a= math.pow(amount,3)
-        b= math.pow(amount,2)
 
         print(amount)
 
-        if index == 0:
-            if amount == 30:
-                final_amount=round(amount*0.7525)
-            elif amount == 60:
-                final_amount=round(amount*0.8175)
-            elif amount == 90:
-                final_amount=round(amount*0.8285)
-            elif amount == 120:
-                final_amount=round(amount*0.8885)
-            elif amount == 150:
-                final_amount=round(amount*0.885)
-            elif amount == 180:
-                final_amount=round(amount*0.895)
-        elif index == 1:
-            if amount == 30:
-                final_amount=round(amount*0.8)
-            elif amount == 60:
-                final_amount=round(amount*0.8325)
-        elif index == 2:
-            if amount == 30:
-                final_amount=round(amount*0.725)
-            elif amount == 60:
-                final_amount=round(amount*0.845)
-            elif amount == 90:
-                final_amount=round(amount*0.8475)
-            elif amount == 120:
-                final_amount=round(amount*0.8715)
-            elif amount == 150:
-                final_amount=round(amount*0.8875)
-            elif amount == 180:
-                final_amount=round(amount*0.9015)
-        elif index == 3:
-            if amount == 30:
-                final_amount=round(amount*0.725)
-            elif amount == 60:
-                final_amount=round(amount*0.835)
-            elif amount == 90:
-                final_amount=round(amount*0.8925)
-            elif amount == 120:
-                final_amount=round(amount*0.885)
-            elif amount == 150:
-                final_amount=round(amount*0.8925)
-            elif amount == 180:
-                final_amount=round(amount*0.9025)
-        elif index == 4:
-            if amount == 30:
-                final_amount=round(amount*0.625)
-            elif amount == 60:
-                final_amount=round(amount*0.785)
-            elif amount == 90:
-                final_amount=round(amount*0.835)
-            elif amount == 120:
-                final_amount=round(amount*0.8625)
-            elif amount == 150:
-                final_amount=round(amount*0.8775)
-            elif amount == 180:
-                final_amount=round(amount*0.895)
-        elif index == 5:
-            if amount == 30:
-                final_amount=round(amount*0.725)
-            elif amount == 60:
-                final_amount=round(amount*0.845)
-            elif amount == 90:
-                final_amount=round(amount*0.8575)
-            elif amount == 120:
-                final_amount=round(amount*0.8705)
-            elif amount == 150:
-                final_amount=round(amount*0.885)
-            elif amount == 180:
-                final_amount=round(amount*0.8925)
-        elif index == 6:
-            if amount == 30:
-                final_amount=round(amount*0.6425)
-            elif amount == 60:
-                final_amount=round(amount*0.815)
-            elif amount == 90:
-                final_amount=round(amount*0.8285)
-            elif amount == 120:
-                final_amount=round(amount*0.8735)
-            elif amount == 150:
-                final_amount=round(amount*0.885)
-            elif amount == 180:
-                final_amount=round(amount*0.895)
-        elif index == 7:
-            if amount == 30:
-                final_amount=round(amount*0.725)
-            elif amount == 60:
-                final_amount=round(amount*0.815)
-            elif amount == 90:
-                final_amount=round(amount*0.8575)
-            elif amount == 120:
-                final_amount=round(amount*0.8705)
-            elif amount == 150:
-                final_amount=round(amount*0.885)
-            elif amount == 180:
-                final_amount=round(amount*0.8925)
-        elif index == 8:
-            if amount == 30:
-                final_amount=round(amount*0.635)
-            elif amount == 60:
-                final_amount=round(amount*0.785)
-            elif amount == 90:
-                final_amount=round(amount*0.8295)
-            elif amount == 120:
-                final_amount=round(amount*0.8735)
-            elif amount == 150:
-                final_amount=round(amount*0.885)
-            elif amount == 180:
-                final_amount=round(amount*0.8925)
-        elif index == 9:
-            final_amount=round(amount*0.93)
-        elif index == 10:
-            if amount == 30:
-                final_amount=round(amount*0.575)
-            elif amount == 60:
-                final_amount=round(amount*0.805)
-            elif amount == 90:
-                final_amount=round(amount*0.8295)
-            elif amount == 120:
-                final_amount=round(amount*0.8475)
-            elif amount == 150:
-                final_amount=round(amount*0.8755)
-            elif amount == 180:
-                final_amount=round(amount*0.8915)
-        elif index == 11:
-            if amount == 30:
-                final_amount=round(amount*0.725)
-            elif amount == 60:
-                final_amount=round(amount*0.835)
-            elif amount == 90:
-                final_amount=round(amount*0.86)
-            elif amount == 120:
-                final_amount=round(amount*0.885)
-            elif amount == 150:
-                final_amount=round(amount*0.894)
-            elif amount == 180:
-                final_amount=round(amount*0.9005)
+        final_amount=amount*0.85
 
         print(final_amount)
         self.scale_tare()

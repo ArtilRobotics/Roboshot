@@ -156,13 +156,6 @@ class HectorController:
         progress = 0
         self.client.publish(self.get_progressTopic(msg.topic), progress)
         steps = 100 / len(drink["recipe"])
-        # if self.LED:
-        #     if "color" in drink.keys():
-        #         self.hector.dosedrink(
-        #             color=webcolors.name_to_rgb(
-        #                 drink["color"]))
-        #     else:
-        #         self.hector.dosedrink()
         if self.client.want_write():
             self.client.loop_write()
         debug("dose drink preparation complete")
@@ -189,8 +182,6 @@ class HectorController:
                     self.client.loop_write()
             progress = progress + steps
         debug("dosing drink finished")
-        # if self.LED:
-        #     self.hector.drinkfinish()
         time.sleep(1)
         self.hector.ping(3, 0)
         debug("reset hardware")
@@ -240,7 +231,6 @@ class HectorController:
                 self.hector.ping(2, 1)
             elif currentTopic == self.TopicPrefix + "doseDrink":
                 self._do_dose_drink(msg)
-                # self.hector.dosedrink(2)
                 pass
             elif currentTopic == self.TopicPrefix + "cleanMe":
                 print("Limpieza")
