@@ -4,9 +4,7 @@ drink_list = [
     {
         "name": "Mojito de limón",
         "recipe": [
-            ("ingr", "lim", 30),
-            ("ingr", "sir_hierba", 30),
-            ("ingr", "ron_b", 60),
+            ("ingr", "sir_pic", 30),
             ("ingr", "sprite", 120)
         ],
         "image": "../Hector9000/Images/mojito-limon.png"

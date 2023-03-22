@@ -105,6 +105,7 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
             self,
             index,
             amount,
+            control,
             timeout=30,
             cback=None,
             progress=(
@@ -114,7 +115,7 @@ class HectorRemote(api.HectorAPI, LEDStripAPI):
 
         self.waiting_dose = True
         self.dose_sucessfull = False
-        self.pub_with_subtopic("valve_dose",str(index) +"," +str(amount) +"," +str(timeout))
+        self.pub_with_subtopic("valve_dose",str(index) +"," +str(amount) +"," +str(control)+"," +str(timeout))
             
         while self.waiting_dose:
             if self.client.want_write():

@@ -166,6 +166,7 @@ class HectorHardware(api.HectorAPI):
             self,
             index,
             amount,
+            control,
             timeout=30,
             cback=None,
             progress=(
@@ -184,24 +185,24 @@ class HectorHardware(api.HectorAPI):
             self.valve_close(10)
             sleep(0.5)
 
-        if amount <= 30:
-            porcentaje = amount * 0.3
-        elif amount >30 and amount <= 75: 
-            porcentaje = amount * 0.45
-        elif amount > 75 and amount <= 90:
-            porcentaje = amount * 0.55
-        elif amount > 90 and amount <= 120:
-            porcentaje = amount * 0.75
-        elif amount > 120:
-            porcentaje = amount * 0.85
+        # if amount <= 30:
+        #     porcentaje = amount * 0.3
+        # elif amount >30 and amount <= 75: 
+        #     porcentaje = amount * 0.45
+        # elif amount > 75 and amount <= 90:
+        #     porcentaje = amount * 0.55
+        # elif amount > 90 and amount <= 120:
+        #     porcentaje = amount * 0.75
+        # elif amount > 120:
+        #     porcentaje = amount * 0.85
 
-        print(amount)
-
-        final_amount=amount*0.85
-
-        print(final_amount)
-        self.scale_tare()
-        sr = self.scale_readout()
+        if control == 0:
+            self.scale_tare()
+            sr = self.scale_readout()
+            final_amount=amount
+        elif control == 1:
+            sr = self.scale_readout()
+            final_amount=amount+round(sr)
         self.light_on()
         self.pump_start()
         self.valve_open(index)
@@ -213,15 +214,17 @@ class HectorHardware(api.HectorAPI):
         last = sr
         while True:
             sr = self.scale_readout()
+            print(sr)
+            print(final_amount)
             if sr < -1 and sr > -5:
                 warning("weight abnormality: scale balanced")
                 amount = amount + sr
                 # balance = False
             
-            if sr<porcentaje:
-                self.pump_start()
-            elif sr > porcentaje:
-                self.pump_medium()
+            # if sr<porcentaje:
+            #     self.pump_start()
+            # elif sr > porcentaje:
+            #     self.pump_medium()
 
             if sr >= final_amount:
                 if last_over:
@@ -300,7 +303,8 @@ def main():
     # h.valve_open(11,0)
     # sleep(0.5)
     # h.light_off()
-    h.valve_dose(0,120,30)
+    h.valve_dose(11,30,0,30)
+    h.valve_dose(11,30,1,30)
     # while True:
     #       h.bomba_start()
         # h.scale_readout()

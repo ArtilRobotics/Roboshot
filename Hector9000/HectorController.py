@@ -166,15 +166,29 @@ class HectorController:
                 # todo: cash value
                 cupsize = int(self.db.get_Setting("cupsize"))
                 ingamount = int((int(step[2])))
-                self.hector.valve_dose(
-                    index=int(pump),
-                    amount=ingamount,
-                    timeout=30,
-                    cback=self.dose_callback,
-                    progress=(
-                        progress,
-                        steps),
-                    topic="Hector9000/doseDrink/progress")
+                if progress == 0:
+                    self.hector.valve_dose(
+                        index=int(pump),
+                        amount=ingamount,
+                        control=0,
+                        timeout=30,
+                        cback=self.dose_callback,
+                        progress=(
+                            progress,
+                            steps),
+                        topic="Hector9000/doseDrink/progress")
+                # Valve_dose_2_para que solo se haga el tare al prinicipio
+                elif progress > 0:
+                    self.hector.valve_dose(
+                        index=int(pump),
+                        amount=ingamount,
+                        control=1,
+                        timeout=30,
+                        cback=self.dose_callback,
+                        progress=(
+                            progress,
+                            steps),
+                        topic="Hector9000/doseDrink/progress")
                 self.client.publish(
                     self.get_progressTopic(
                         msg.topic), progress + steps)

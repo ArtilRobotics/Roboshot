@@ -18,10 +18,10 @@ isSim = 0
 #isSim = os.environ.get('isHectorSim', 0)
 
 print(isSim)
-if isSim != 1:
-    from Hector9000.HectorHardware import HectorHardware as Hector
-else:
-    from Hector9000.HectorSimulator import HectorSimulator as Hector
+# if isSim == 0:
+from Hector9000.HectorHardware import HectorHardware as Hector
+# else:
+#     from Hector9000.HectorSimulator import HectorSimulator as Hector
 
 
 # global vars
@@ -30,7 +30,7 @@ MQTTIP = "localhost"
 MQTTPORT = 1883
 co = HC.config
 hector = Hector(co)
-valve_pattern = re.compile(r"[0-9]+\,[0-9]+\,[0-9]+")
+valve_pattern = re.compile(r"[0-9]+\,[0-9]+\,[0-9]+\,[0-9]+")
 
 VERBOSE_LEVEL = 0
 
@@ -146,9 +146,9 @@ def do_valve_close(index):
     hector.valve_close(index)
 
 
-def do_valve_dose(index, amount, timeout=30):
+def do_valve_dose(index, amount, control, timeout=30):
     log("dose valve %d with amount %d" % (index, amount))
-    return hector.valve_dose(index=index, amount=amount, timeout=timeout)
+    return hector.valve_dose(index=index, amount=amount, control=control, timeout=timeout)
 
 
 def do_ping(num, retract):
@@ -251,9 +251,13 @@ def on_message(client, userdata, msg):
             error("Wrong payload in valve dose")
             return
         args = list(map(int, msg.payload.decode("utf-8").split(",")))
-        ret = do_valve_dose(index=args[0], amount=args[1], timeout=args[2])
+        print(args[0])
+        print(args[1])
+        print(args[2])
+        print(args[3])
+        ret = do_valve_dose(index=args[0], amount=args[1], control=args[2], timeout=args[3])
         res = 1 if ret else -1
-        log("Sending return")
+        print("Sending return")
         try:
             client.publish(MainTopic + topic + "/return", res)
             # ToDo: this line ^ causes trouble. Sometimes it just doesnt send the

@@ -155,6 +155,7 @@ class HectorSimulator(api.HectorAPI):
             self,
             index,
             amount,
+            set,
             timeout=30,
             cback=None,
             progress=(
